@@ -1,0 +1,24 @@
+---
+# stop the stack
+- hosts: loadbalancer
+  tasks:
+    - service: name=nginx state=stopped
+
+- hosts: webserver
+  tasks:
+    - service: name=apache2 state=stopped
+
+# Restart the DB
+- hosts: database
+  tasks:
+    - service: name=mysql state=restarted
+
+# start the stack
+- hosts: webserver
+  tasks:
+    - service: name=apache2 state=restarted
+
+- hosts: loadbalancer
+  tasks:
+    - service: name=nginx state=restarted
+

@@ -1,0 +1,5 @@
+---
+- hosts: control
+  tasks:
+    - name: 
+      apt: 

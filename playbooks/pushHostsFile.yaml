@@ -7,22 +7,22 @@
                  state=present
 
    - name: "add db01 record"
-     lineinfile: dest=/etc/hosts regexp='^<lb01-ip>' 
-                 line="<db01-ip>\tdb0101"
+     lineinfile: dest=/etc/hosts regexp='^<db01-ip>' 
+                 line="<db01-ip>\tdb01"
                  state=present
 
    - name: "add app01 record"
-     lineinfile: dest=/etc/hosts regexp='^<lb01-ip>' 
+     lineinfile: dest=/etc/hosts regexp='^<app01-ip>' 
                  line="<app01-ip>\tapp01"
                  state=present
 
    - name: "add lapp02 record"
-     lineinfile: dest=/etc/hosts regexp='^<lb01-ip>' 
+     lineinfile: dest=/etc/hosts regexp='^<app02-ip>' 
                  line="<app02-ip>\tapp02"
                  state=present
 
    - name: "add ansible-master record"
-     lineinfile: dest=/etc/hosts regexp='^<lb01-ip>' 
+     lineinfile: dest=/etc/hosts regexp='^<ansible-master-ip>' 
                  line="<ansible-master-ip>\tansible-master"
                  state=present
 

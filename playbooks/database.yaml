@@ -6,3 +6,12 @@
 
     - name: start mysql
       service: name=mysql state=started enabled=yes
+
+    - name: Ensure mysql listening on all IPs
+      lineinfile: dest=/etc/mysql/my.cnf regexp="^bind-address"
+                  line="bind-address = 0.0.0.0"
+      notify: restart mysql
+
+  handlers:
+    - name: restart mysql
+      service: name=mysql state=restarted

@@ -17,13 +17,25 @@
       notify: restart apache2
 
     - name: copy app source
-      copy: src=demo/app/ dest:=/var/www/demo mode=0755
+      copy: src=demo/app/ dest=/var/www/demo mode=0755
       notify: restart apache2
 
     - name: copy app vhost
-      copy: src=demo/demo.conf dest:=/etc/apache2/sites-available mode=0755
+      copy: src=demo/demo.conf dest=/etc/apache2/sites-available mode=0755
+      notify: restart apache2
+
+    - name: setup python virtual environment
+      pip: requirements=/var/www/demo/requirements.txt virtualenv=/var/www/demo/.venv
+      notify: restart apache2
+
+    - name: de-activate default site
+      file: path=/etc/apache2/sites-enabled/000-default.conf state=absent
+      notify: restart apache2
+      
+    - name: activate demo site
+      file: src=/etc/apache2/sites-available/demo.conf dest=/etc/apache2/sites-enabled/demo.conf state=link
       notify: restart apache2
 
   handlers:
     - name: restart apache2
-      service: name=alache2 state=restarted
+      service: name=apache2 state=restarted
